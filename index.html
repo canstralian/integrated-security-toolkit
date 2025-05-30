@@ -1,19 +1,233 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kali Linux + C2 Framework Development Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a202c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+        
+        /* Code block styling */
+        pre {
+            background-color: #2d3748;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        pre code {
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        
+        pre:hover .copy-btn {
+            opacity: 1;
+        }
+        
+        /* Tab styling */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .tab-btn.active {
+            border-bottom: 2px solid #4299e1;
+            color: #4299e1;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #2d3748;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray-800 py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <i class="fas fa-shield-alt text-blue-400 text-3xl mr-3"></i>
+                    <h1 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                        Kali Linux + C2 Framework Development Guide
+                    </h1>
+                </div>
+                <div class="flex space-x-2">
+                    <a href="#kali" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-md transition">Kali Setup</a>
+                    <a href="#c2" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-md transition">C2 Development</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Introduction -->
+        <section class="mb-12 bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h2 class="text-2xl font-bold mb-4 text-blue-400">Integrated Security Toolkit</h2>
+            <p class="mb-4">
+                This guide combines custom Kali Linux installation with C2 framework agent/plugin development to create a comprehensive offensive security toolkit.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-gray-700 p-4 rounded-lg border-l-4 border-blue-500">
+                    <h3 class="font-semibold text-lg mb-2"><i class="fas fa-linux mr-2 text-blue-400"></i> Kali Linux Customization</h3>
+                    <p>Build a tailored Kali ISO with pre-installed tools, custom user setup, and optimized desktop environment for penetration testing.</p>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg border-l-4 border-purple-500">
+                    <h3 class="font-semibold text-lg mb-2"><i class="fas fa-code mr-2 text-purple-400"></i> C2 Framework Development</h3>
+                    <p>Extend your capabilities by developing custom agents and plugins for popular C2 frameworks like Sliver, Havoc, Mythic, and Nimplant.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kali Linux Section -->
+        <section id="kali" class="mb-12">
+            <div class="flex items-center mb-6">
+                <i class="fas fa-linux text-3xl mr-3 text-blue-400"></i>
+                <h2 class="text-2xl font-bold">Part 1: Custom Kali Linux Installation</h2>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg mb-6">
+                <h3 class="text-xl font-semibold mb-4 text-blue-300">Goal</h3>
+                <p class="mb-4">
+                    Create a Kali Linux ISO with Burp Suite, OWASP ZAP, Nikto pre-installed, non-root sudo user, and XFCE desktop environment.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gray-700 p-3 rounded-lg">
+                        <h4 class="font-medium mb-2"><i class="fas fa-check-circle mr-2 text-green-400"></i>Pre-installed Tools</h4>
+                        <ul class="list-disc pl-5 text-sm">
+                            <li>Burp Suite</li>
+                            <li>OWASP ZAP</li>
+                            <li>Nikto</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-700 p-3 rounded-lg">
+                        <h4 class="font-medium mb-2"><i class="fas fa-user-shield mr-2 text-yellow-400"></i>Security</h4>
+                        <ul class="list-disc pl-5 text-sm">
+                            <li>Non-root user</li>
+                            <li>Sudo privileges</li>
+                            <li>Hardened config</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gray-700 p-3 rounded-lg">
+                        <h4 class="font-medium mb-2"><i class="fas fa-desktop mr-2 text-blue-400"></i>Desktop</h4>
+                        <ul class="list-disc pl-5 text-sm">
+                            <li>XFCE environment</li>
+                            <li>Custom themes</li>
+                            <li>Optimized UI</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Steps with Tabs -->
+                <div class="mt-6">
+                    <div class="flex overflow-x-auto mb-4">
+                        <button class="tab-btn active px-4 py-2 mr-2 bg-gray-700 rounded-t-lg" onclick="openTab(event, 'step1')">Step 1</button>
+                        <button class="tab-btn px-4 py-2 mr-2 bg-gray-700 rounded-t-lg" onclick="openTab(event, 'step2')">Step 2</button>
+                        <button class="tab-btn px-4 py-2 mr-2 bg-gray-700 rounded-t-lg" onclick="openTab(event, 'step3')">Step 3</button>
+                        <button class="tab-btn px-4 py-2 mr-2 bg-gray-700 rounded-t-lg" onclick="openTab(event, 'step4')">Step 4</button>
+                        <button class="tab-btn px-4 py-2 mr-2 bg-gray-700 rounded-t-lg" onclick="openTab(event, 'step5')">Step 5</button>
+                        <button class="tab-btn px-4 py-2 mr-2 bg-gray-700 rounded-t-lg" onclick="openTab(event, 'step6')">Step 6</button>
+                    </div>
+                    
+                    <div id="step1" class="tab-content active bg-gray-700 p-4 rounded-b-lg rounded-tr-lg">
+                        <h4 class="font-semibold mb-3">Preparing the Environment</h4>
+                        <p class="mb-3">Download the Kali Linux ISO and verify its integrity:</p>
+                        <pre class="relative">
+                            <code>wget https://cdimage.kali.org/kali-rolling/amd64/iso/kali-linux-rolling-amd64.iso
+sha256sum kali-linux-rolling-amd64.iso</code>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </pre>
+                        <div class="bg-gray-600 p-3 rounded-lg mt-3">
+                            <h5 class="font-medium text-yellow-300 mb-1"><i class="fas fa-lightbulb mr-2"></i>Best Practices</h5>
+                            <ul class="list-disc pl-5 text-sm">
+                                <li>Always verify ISO checksum</li>
+                                <li>Use VM for initial tests before bare metal</li>
+                                <li>Consider using Ventoy for multi-ISO USB</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="step2" class="tab-content bg-gray-700 p-4 rounded-b-lg rounded-tr-lg">
+                        <h4 class="font-semibold mb-3">Customizing Kali ISO with live-build</h4>
+                        <p class="mb-3">Install live-build and set up the configuration:</p>
+                        <pre class="relative">
+                            <code>sudo apt install live-build
+git clone https://gitlab.com/kalilinux/packages/live-build-config.git
+cd live-build-config
+cp -r config config-custom</code>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="fas fa-copy"></i></button>
+                        </pre>
+                        <div class="bg-gray-600 p-3 rounded-lg mt-3">
+                            <h5 class="font-medium text-yellow-300 mb-1"><i class="fas fa-lightbulb mr-2"></i>Best Practices</h5>
+                            <ul class="list-disc pl-5 text-sm">
+                                <li>Create a custom config directory</li>
+                                <li>Edit <code>config/package-lists/kali.list.chroot</code> to add tools</li>
+                                <li>Keep original config as backup</li>
+
 </html>
